@@ -64,6 +64,7 @@ function Enemies () {
 }
 controller.B.onEvent(ControllerButtonEvent.Pressed, function () {
     Redbirds.stopDart()
+    Redbirds.sprite.ay = 200
 })
 controller.A.onEvent(ControllerButtonEvent.Pressed, function () {
     Redbirds.throwDart()
@@ -83,4 +84,3 @@ pause(3000)
 scene.cameraFollowSprite(Enemy1)
 pause(3000)
 scene.cameraFollowSprite(Redbirds.sprite)
-game.splash("Press A to throw and B to stop")
