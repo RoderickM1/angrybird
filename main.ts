@@ -20,6 +20,7 @@ function makeRedBird () {
     tiles.placeOnTile(Redbirds.sprite, tiles.getTileLocation(1, 17))
     Redbirds.controlWithArrowKeys()
     Redbirds.setTrace()
+    Redbirds.sprite.ay = 200
 }
 function Enemies () {
     Enemy1 = sprites.create(img`
@@ -63,7 +64,6 @@ function Enemies () {
 }
 controller.B.onEvent(ControllerButtonEvent.Pressed, function () {
     Redbirds.stopDart()
-    Redbirds.sprite.setVelocity(0, 50)
 })
 controller.A.onEvent(ControllerButtonEvent.Pressed, function () {
     Redbirds.throwDart()
@@ -83,3 +83,4 @@ pause(3000)
 scene.cameraFollowSprite(Enemy1)
 pause(3000)
 scene.cameraFollowSprite(Redbirds.sprite)
+game.splash("Press A to throw and B to stop")
