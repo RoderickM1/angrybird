@@ -60,7 +60,7 @@ function Enemies () {
         . . . . 7 7 7 7 7 7 7 7 7 7 . . 
         . . . . . . . . 7 7 . . . . . . 
         `, SpriteKind.Player)
-    tiles.placeOnRandomTile(Enemy2, assets.tile`pig`)
+    tiles.placeOnRandomTile(Enemy2, assets.tile`myTile5`)
 }
 controller.B.onEvent(ControllerButtonEvent.Pressed, function () {
     Redbirds.stopDart()
