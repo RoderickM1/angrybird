@@ -55,9 +55,8 @@ function makeRedBird () {
     tiles.placeOnTile(slingshotSprite, tiles.getTileLocation(14, 13))
     Redbirds.sprite.setPosition(slingshotSprite.x - 10, slingshotSprite.y)
     Redbirds.controlWithArrowKeys()
-    Redbirds.setTrace()
 }
-function Enemies () {
+function Enemies (amount: number) {
     Enemy1 = sprites.create(img`
         . . . . . . . . . . . . . . . . 
         . . 7 7 7 7 . . . 7 7 7 . . . . 
@@ -76,7 +75,6 @@ function Enemies () {
         . . . . 7 7 7 7 7 7 7 7 7 7 . . 
         . . . . . . . . 7 7 . . . . . . 
         `, SpriteKind.Enemy)
-    tiles.placeOnRandomTile(Enemy1, assets.tile`pig`)
     Enemy2 = sprites.create(img`
         . . . . . . . . . . . . . . . . 
         . . 7 7 7 7 . . . 7 7 7 . . . . 
@@ -96,6 +94,7 @@ function Enemies () {
         . . . . . . . . 7 7 . . . . . . 
         `, SpriteKind.Enemy)
     tiles.placeOnRandomTile(Enemy2, assets.tile`myTile5`)
+    tiles.placeOnRandomTile(Enemy1, assets.tile`pig`)
 }
 controller.B.onEvent(ControllerButtonEvent.Pressed, function () {
     Redbirds.sprite.ay = 200
@@ -139,6 +138,8 @@ function _1stAnimation () {
     pause(5000)
     scene.cameraFollowSprite(Redbirds.sprite)
     isAnimation = false
+    game.showLongText("Press \"A\" to launch and \"B\" to get to the ground faster ", DialogLayout.Top)
+    Redbirds.setTrace()
 }
 function isAnimationFinish () {
     if (isAnimation == true) {
@@ -429,7 +430,7 @@ scene.setBackgroundImage(img`
 scene.setBackgroundColor(9)
 tiles.setCurrentTilemap(tilemap`level1`)
 makeRedBird()
-Enemies()
+Enemies(1)
 _1stAnimation()
 game.onUpdateInterval(1500, function () {
     if (Redbirds.sprite.tileKindAt(TileDirection.Bottom, assets.tile`myTile`)) {
@@ -437,5 +438,55 @@ game.onUpdateInterval(1500, function () {
     }
     if (info.score() == 2) {
         game.over(true, effects.confetti)
+    }
+})
+forever(function () {
+    while (isAnimationFinish() == true) {
+        animation.runImageAnimation(
+        Enemy1,
+        [img`
+            . . . . . . . . . . . . . . . . 
+            . . . . . . . . . . . . . . . . 
+            . . . . . . . . . . . . . . . . 
+            . . . . . . . . . . . . . . . . 
+            . . . . . . . . . . . . . . . . 
+            . . . . . . . . . . . . . . . . 
+            . . . . . . . . . . . . . . . . 
+            . . . . . . . . . . . . . . . . 
+            . . . . . . . . . . . . . . . . 
+            . . . . . . . . . . . . . . . . 
+            . . . . . . . . . . . . . . . . 
+            . . . . . . . . . . . . . . . . 
+            . . . . . . . . . . . . . . . . 
+            . . . . . . . . . . . . . . . . 
+            . . . . . . . . . . . . . . . . 
+            . . . . . . . . . . . . . . . . 
+            `],
+        500,
+        false
+        )
+        animation.runImageAnimation(
+        Enemy2,
+        [img`
+            . . . . . . . . . . . . . . . . 
+            . . . . . . . . . . . . . . . . 
+            . . . . . . . . . . . . . . . . 
+            . . . . . . . . . . . . . . . . 
+            . . . . . . . . . . . . . . . . 
+            . . . . . . . . . . . . . . . . 
+            . . . . . . . . . . . . . . . . 
+            . . . . . . . . . . . . . . . . 
+            . . . . . . . . . . . . . . . . 
+            . . . . . . . . . . . . . . . . 
+            . . . . . . . . . . . . . . . . 
+            . . . . . . . . . . . . . . . . 
+            . . . . . . . . . . . . . . . . 
+            . . . . . . . . . . . . . . . . 
+            . . . . . . . . . . . . . . . . 
+            . . . . . . . . . . . . . . . . 
+            `],
+        500,
+        false
+        )
     }
 })
